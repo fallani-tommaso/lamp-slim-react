@@ -1,0 +1,10 @@
+.App {
+  text-align: center;
+}
+#alunni{
+  text-align: center;
+}
+#alunni table{
+  width: 800px;
+  margin: auto;
+}
