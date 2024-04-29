@@ -6,6 +6,10 @@ import { useState, useEffect } from 'react';
 function App() {
   const [alunni, setAlunni] = useState([]);
   const[inCaricamento, setInCaricamento] = useState(false);
+  const[showForm, setShowForm] = useState(false);
+
+  const[nome, setNome] = useState("");
+  const[cognome, setCognome] = useState("");
 
 
   useEffect(() => {
@@ -20,6 +24,28 @@ function App() {
     setInCaricamento(false);
   };
 
+  async function salvaAlunno(){
+    await fetch(`http://localhost:8080/alunni`, 
+    {
+      method: "POST", 
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({nome: nome, cognome: cognome})
+    });
+    loadAlunni();
+    setShowForm(false);
+  }
+
+  function gestisciCambioNome(e){
+    setNome(e.target.value);
+  }
+
+  function gestisciCambioCognome(e){
+    setCognome(e.target.value);
+  }
+
+
+
+
   return (
     <div className="App">
       <button onClick={loadAlunni}>Carica alunni</button>
@@ -32,6 +58,26 @@ function App() {
             <Alunno alunno={alunno} loadAlunni={loadAlunni}  key={alunno.id} />
           ))
       }
+      
+      <button onClick={() => setShowForm(true)}>Inserisci nuovo alunno</button>
+
+      
+      { showForm && 
+        <div>
+          <h1>Form di inserimento</h1>
+
+          <div>Nome:    <input type="text" onChange={gestisciCambioNome} value={nome} placeholder="Inserisci il nome"></input></div>
+
+          <div>Cognome: <input type="text" onChange={gestisciCambioCognome} value={cognome} placeholder="Inserisci il cognome"></input></div>
+
+          <button onClick={salvaAlunno}>Salva</button>
+          <button onClick={() => setShowForm(false)}>Annulla</button>
+          <div>{nome}{cognome}</div>
+
+        </div>
+      }
+
+
     </div>
   );
 }
