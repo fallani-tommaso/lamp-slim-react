@@ -35,7 +35,6 @@ function App() {
     setShowForm(false);
     setNome('');
     setCognome('');
-
   }
 
   function gestisciCambioNome(e){
@@ -51,9 +50,6 @@ function App() {
     setNome('');
     setCognome('');
   }
-
-
-
 
   return (
     <div className="App">

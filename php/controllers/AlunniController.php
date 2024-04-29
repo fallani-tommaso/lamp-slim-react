@@ -15,7 +15,7 @@ class AlunniController
     return $response->withHeader("Content-type", "application/json")->withStatus(200);
   }
 
-  public function create(Request $request, Response $response, $args){
+  public function insert(Request $request, Response $response, $args){
     sleep(2);
 
     $data = json_decode($request->getBody()->getContents(), true);
