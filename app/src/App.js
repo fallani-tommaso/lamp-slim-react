@@ -27,12 +27,15 @@ function App() {
   async function salvaAlunno(){
     await fetch(`http://localhost:8080/alunni`, 
     {
-      method: "POST", 
+      method: "POST",
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({nome: nome, cognome: cognome})
     });
     loadAlunni();
     setShowForm(false);
+    setNome('');
+    setCognome('');
+
   }
 
   function gestisciCambioNome(e){
@@ -41,6 +44,12 @@ function App() {
 
   function gestisciCambioCognome(e){
     setCognome(e.target.value);
+  }
+
+  function annulla(){
+    setShowForm(false);
+    setNome('');
+    setCognome('');
   }
 
 
@@ -71,8 +80,8 @@ function App() {
           <div>Cognome: <input type="text" onChange={gestisciCambioCognome} value={cognome} placeholder="Inserisci il cognome"></input></div>
 
           <button onClick={salvaAlunno}>Salva</button>
-          <button onClick={() => setShowForm(false)}>Annulla</button>
-          <div>{nome}{cognome}</div>
+          <button onClick={annulla}>Annulla</button>
+          <div>{nome} {cognome}</div>
 
         </div>
       }
